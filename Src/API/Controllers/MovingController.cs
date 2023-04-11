@@ -27,14 +27,14 @@ namespace API.Controllers
         }
         [Route("AddUpdate")]
         [HttpPost]
-        [CheckJwtToken]
+        //[CheckJwtToken]
         public async Task<ActionResult<ServiceResult<string>>> AddUpdate([FromForm] OfferRequest model)
         {
             try
             {
-                var token = RequestUtil.GetToken(HttpContext);
-                var tokenModel = _service.Token.ValidateToken(token);
-                var result = await _service.Offer.AddUpdate(model, tokenModel.Id);
+                //var token = RequestUtil.GetToken(HttpContext);
+                //var tokenModel = _service.Token.ValidateToken(token);
+                var result = await _service.Offer.AddUpdate(model, 0);
 
                 if (result.IsSuccess)
                     return Ok(result);

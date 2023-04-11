@@ -73,12 +73,44 @@ namespace Service.Implementations
                 string pathToFile = hostingEnvironment.WebRootPath +
                     Path.DirectorySeparatorChar + "html" +
                     Path.DirectorySeparatorChar + "emails" +
-                    Path.DirectorySeparatorChar + "Moving.html";
+                    Path.DirectorySeparatorChar + "Order.html";
                 using (StreamReader SourceReader = File.OpenText(pathToFile))
                 {
                     htmlbody = SourceReader.ReadToEnd();
                 }
-                htmlbody = htmlbody.Replace("{link}", "test");
+                htmlbody = htmlbody.Replace("{Name}", "test");
+                htmlbody = htmlbody.Replace("{Email}", "test");
+                htmlbody = htmlbody.Replace("{Telephone}", "test");
+                htmlbody = htmlbody.Replace("{MovingLoaction}", "test");
+                htmlbody = htmlbody.Replace("{FlexibleMovingDt}", "test");
+                htmlbody = htmlbody.Replace("{FlexibilityDate}", "test");
+                htmlbody = htmlbody.Replace("{AgencyTo}", "test");
+                htmlbody = htmlbody.Replace("{StoreObject}", "test");
+                htmlbody = htmlbody.Replace("{CurrentHome}", "test");
+                htmlbody = htmlbody.Replace("{InsureMoving}", "test");
+                htmlbody = htmlbody.Replace("{MovingLoad}", "test");
+                htmlbody = htmlbody.Replace("{NoOfPeople}", "test");
+                htmlbody = htmlbody.Replace("{CurrentAdd}", "test");
+                htmlbody = htmlbody.Replace("{NOST}", "test");
+                htmlbody = htmlbody.Replace("{HomeSize}", "test");
+                htmlbody = htmlbody.Replace("{RoomNo}", "test");
+                htmlbody = htmlbody.Replace("{HousingTpe}", "test");
+                htmlbody = htmlbody.Replace("{MovingDt}", "test");
+                htmlbody = htmlbody.Replace("{MovingFromStor}", "test");
+                htmlbody = htmlbody.Replace("{MovingFrom}", "test");
+                htmlbody = htmlbody.Replace("{DistanceToPark}", "test");
+                htmlbody = htmlbody.Replace("{NAddress}", "test");
+                htmlbody = htmlbody.Replace("{STNO}", "test");
+                htmlbody = htmlbody.Replace("{PostalCod}", "test");
+                htmlbody = htmlbody.Replace("{NORooms}", "test");
+                htmlbody = htmlbody.Replace("{HousingTyp}", "test");
+                htmlbody = htmlbody.Replace("{FloorNumber}", "test");
+                htmlbody = htmlbody.Replace("{LiftAvail}", "test");
+                htmlbody = htmlbody.Replace("{DistanceTo}", "test");
+                htmlbody = htmlbody.Replace("{FloorNo}", "test");
+                htmlbody = htmlbody.Replace("{MovingObj}", "test");
+                htmlbody = htmlbody.Replace("{Fragile}", "test");
+                htmlbody = htmlbody.Replace("{AdditionalInfo}", "test");
 
                 // Convert HTML to PDF
                 string HTMLContent = htmlbody; //"Hello <b>World</b>";// Put your html tempelate here
@@ -110,36 +142,6 @@ namespace Service.Implementations
 
                 ms.Flush(); //Always catches me out
                 ms.Position = 0; //Not sure if this is required
-
-                // Convert the HTML template to PDF
-
-                //iTextSharp.text.Document document = new iTextSharp.text.Document();
-                //StringBuilder strBody = new StringBuilder();
-                //using (StringWriter sw = new StringWriter())
-                //{
-                //    strBody.Append(htmlbody);
-                //    PdfWriter.GetInstance(document, new FileStream(pathToFile, FileMode.Create));
-                //    document.Open();
-                //    List<iTextSharp.text.IElement> htmlarraylist = HTMLWorker.ParseToList(new StringReader(strBody.ToString()), null);
-                //    for (int k = 0; k < htmlarraylist.Count; k++)
-                //    {
-                //        document.Add((iTextSharp.text.IElement)htmlarraylist[k]);
-                //    }
-                //}
-
-
-
-                //var renderer = new HtmlToPdf();
-                //var pdf = renderer.RenderHtmlAsPdf(htmlbody);
-
-                //// Save PDF to a temporary file
-                //var pdfFilePath = Path.GetTempFileName() + ".pdf";
-                //pdf.SaveAs(pdfFilePath);
-
-                // Attach PDF file to email
-                //Attachment attachment = new Attachment(pdfFilePath);
-                //message.Attachments.Add(attachment);
-
                 message.Body = htmlbody;
                 message.Attachments.Add(new Attachment(ms, "template.pdf", "application/pdf"));
 
