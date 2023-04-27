@@ -28,12 +28,13 @@ namespace API.Controllers
         }
         [Route("GetWebVehicleList")]
         [HttpGet]
-        public async Task<ActionResult<ServiceResult<List<VehicleResponseModel>>>> GetWebVehicleList(int CurrentPageNo, int RecordPerPage, string SortOrder, string SearchText,string Type)
+        public async Task<ActionResult<ServiceResult<List<VehicleResponseModel>>>> GetWebVehicleList(int CurrentPageNo, int RecordPerPage, string SortOrder, string SearchText,string Type
+                ,string SeatNo,string SteeringType,string FuelType,string DriveWheelType)
         {
             try
             {
                 decimal AccountId = 0;
-                var result = await _service.Vehicle.GetWebVehicleList(AccountId, CurrentPageNo, RecordPerPage   , SortOrder, SearchText, Type);
+                var result = await _service.Vehicle.GetWebVehicleList(AccountId, CurrentPageNo, RecordPerPage   , SortOrder, SearchText, Type, SeatNo, SteeringType, FuelType, DriveWheelType);
 
                 if (result.IsSuccess)
                     return Ok(result);

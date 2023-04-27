@@ -326,7 +326,8 @@ namespace Service.Implementations
             }
         }
 
-        public async Task<ServiceResult<List<VehicleResponseModel>>> GetWebVehicleList(decimal AccountId, int CurrentPageNo, int RecordPerPage, string SortOrder, string SearchText, string Type)
+        public async Task<ServiceResult<List<VehicleResponseModel>>> GetWebVehicleList(decimal AccountId, int CurrentPageNo, int RecordPerPage,
+            string SortOrder, string SearchText, string Type, string SeatNo, string SteeringType, string FuelType, string DriveWheelType)
         {
             try
             {
@@ -334,10 +335,24 @@ namespace Service.Implementations
                     .Include(a => a.VehicleImage).Include(a => a.VehiclePart)
                     .Include(a => a.VehicleModels).Include(a => a.sys_drop_down_value)
                     .Include(a => a.sys_drop_down_value1).Include(a => a.sys_drop_down_value2).AsQueryable();
-                if (!string.IsNullOrEmpty(SearchText))
+                if (SeatNo != "undefined" && SeatNo != null)
                 {
-                    makeobj = makeobj.Where(x => x.Makes.Name.ToLower().Contains(SearchText.ToLower()));
+                    makeobj = makeobj.Where(x => x.NoOfSeatId.ToString().Contains(SeatNo));
                 }
+
+                if (SteeringType != "undefined" && SteeringType != null)
+                {
+                    makeobj = makeobj.Where(x => x.SteeringTypeId.ToString().Contains(SteeringType));
+                }
+                if (FuelType != "undefined" && FuelType != null)
+                {
+                    makeobj = makeobj.Where(x => x.FuelTypeId.ToString().Contains(FuelType));
+                }
+                if (DriveWheelType != "undefined" && DriveWheelType != null)
+                {
+                    makeobj = makeobj.Where(x => x.DriveWheelType.ToString().Contains(DriveWheelType));
+                }
+               
                 var total = await makeobj.CountAsync();
                 makeobj = makeobj.Page(CurrentPageNo, RecordPerPage);
                 makeobj = makeobj.OrderByDescending(w => w.CreatedAt);

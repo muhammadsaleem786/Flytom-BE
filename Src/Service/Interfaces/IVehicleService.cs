@@ -16,7 +16,7 @@ namespace Service.Interfaces
         Task<ServiceResult<string>> AddUpdate(VehicleRequest model, long AccountId);
         Task<ServiceResult<string>> Delete(long id, long AccountId);
         Task<ServiceResult<List<VehicleResponseModel>>> GetVehicleList(decimal AccountId, int CurrentPageNo, int RecordPerPage, string VisibleColumnInfo, string SortName, string SortOrder, string SearchText, bool IgnorePaging = false);
-        Task<ServiceResult<List<VehicleResponseModel>>> GetWebVehicleList(decimal AccountId, int CurrentPageNo, int RecordPerPage, string SortOrder, string SearchText,string Type);
+        Task<ServiceResult<List<VehicleResponseModel>>> GetWebVehicleList(decimal AccountId, int CurrentPageNo, int RecordPerPage, string SortOrder, string SearchText,string Type, string SeatNo, string SteeringType, string FuelType, string DriveWheelType);
         Task<ServiceResult<VehicleResponse>> GetById(int Id);
         Task<ServiceResult<List<ImageList>>> UploadImage(List<IFormFile> ImageList);
         Task<ServiceResult<VehicleWebResponse>> GetByIdWebSite(int Id,string Type);

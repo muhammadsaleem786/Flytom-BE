@@ -23,6 +23,7 @@ using System.Text;
 using System.Diagnostics;
 using DTO.ViewModel.Make;
 using DTO.ViewModel.Offer;
+using System.Collections;
 
 namespace Service.Implementations
 {
@@ -50,21 +51,82 @@ namespace Service.Implementations
                     var makeobj = await _repository.Offer.GetByIdAsync(model.Id);
                     if (makeobj == null)
                         return ServiceResults.Errors.NotFound<string>("Offer", null);
+                    makeobj.MovingDate = model.MovingDate;
+                    makeobj.IsFlexible = model.IsFlexible;
+                    makeobj.DesiredMovingDate = model.DesiredMovingDate;
+                    makeobj.IsPackedItem = model.IsPackedItem;
+                    makeobj.IsStoreObject = model.IsStoreObject;
+                    makeobj.IsCurrentHome = model.IsCurrentHome;
+                    makeobj.IsInsureMoving = model.IsInsureMoving;
+                    makeobj.MovingLoad = model.MovingLoad;
+                    makeobj.NoOfPeople = model.NoOfPeople;
+                    makeobj.CurrentAddress = model.CurrentAddress;
+                    makeobj.StreetNo = model.StreetNo;
+                    makeobj.SizeOfHome = model.SizeOfHome;
+                    makeobj.TotalRoom = model.TotalRoom;
+                    makeobj.HouseType = model.HouseType;
+                    makeobj.IsMovedStorageRoom = model.IsMovedStorageRoom;
+                    makeobj.IsMovedGarage = model.IsMovedGarage;
+                    makeobj.ParkingDistance = model.ParkingDistance;
+                    makeobj.NewAddress = model.NewAddress;
+                    makeobj.NewStreetNo = model.NewStreetNo;
+                    makeobj.PostalCode = model.PostalCode;
+                    makeobj.NewTotalRoom = model.NewTotalRoom;
+                    makeobj.NewHouseType = model.NewHouseType;
+                    makeobj.ApartmentFloor = model.ApartmentFloor;
+                    makeobj.IsLift = model.IsLift;
+                    makeobj.NewParkingDistance = model.NewParkingDistance;
+                    makeobj.IsMovingHeavyObject = model.IsMovingHeavyObject;
+                    makeobj.IsMovingValueableItem = model.IsMovingValueableItem;
+                    makeobj.AdditionalInfo = model.AdditionalInfo;
                     makeobj.Name = model.Name;
+                    makeobj.Email = model.Email;
+                    makeobj.Phone = model.Phone;
                     makeobj.UpdatedAt = DateTime.UtcNow;
                     _repository.Offer.Update(makeobj);
                     await _repository.SaveAsync();
+                    _ = emailServices.SendEmailWithPdf(makeobj);
                     return ServiceResults.UpdatedSuccessfully<string>("Offer");
                 }
                 else
                 {
                     Offer make = new Offer()
                     {
+                        MovingDate = model.MovingDate,
+                        IsFlexible = model.IsFlexible,
+                        DesiredMovingDate = model.DesiredMovingDate,
+                        IsPackedItem = model.IsPackedItem,
+                        IsStoreObject = model.IsStoreObject,
+                        IsCurrentHome = model.IsCurrentHome,
+                        IsInsureMoving = model.IsInsureMoving,
+                        MovingLoad = model.MovingLoad,
+                        NoOfPeople = model.NoOfPeople,
+                        CurrentAddress = model.CurrentAddress,
+                        StreetNo = model.StreetNo,
+                        SizeOfHome = model.SizeOfHome,
+                        TotalRoom = model.TotalRoom,
+                        HouseType = model.HouseType,
+                        IsMovedStorageRoom = model.IsMovedStorageRoom,
+                        IsMovedGarage = model.IsMovedGarage,
+                        ParkingDistance = model.ParkingDistance,
+                        NewAddress = model.NewAddress,
+                        NewStreetNo = model.NewStreetNo,
+                        PostalCode = model.PostalCode,
+                        NewTotalRoom = model.NewTotalRoom,
+                        NewHouseType = model.NewHouseType,
+                        ApartmentFloor = model.ApartmentFloor,
+                        IsLift = model.IsLift,
+                        NewParkingDistance = model.NewParkingDistance,
+                        IsMovingHeavyObject = model.IsMovingHeavyObject,
+                        IsMovingValueableItem = model.IsMovingValueableItem,
+                        AdditionalInfo = model.AdditionalInfo,
                         Name = model.Name,
+                        Email = model.Email,
+                        Phone = model.Phone,
                     };
                     _repository.Offer.Create(make);
                     await _repository.SaveAsync();
-                    _ = emailServices.SendEmailWithPdf(model.Name, model.Email);
+                    _ = emailServices.SendEmailWithPdf(make);
                     return ServiceResults.AddedSuccessfully<string>("Offer");
                 }
 
@@ -76,7 +138,7 @@ namespace Service.Implementations
             }
         }
 
-        
+
         public async Task<ServiceResult<string>> Delete(long id, long AccountId)
         {
             try
@@ -102,10 +164,10 @@ namespace Service.Implementations
         {
             try
             {
-                var makeobj = await _repository.Offer.FindByCondition(a=>a.Id==Id).FirstOrDefaultAsync();
+                var makeobj = await _repository.Offer.FindByCondition(a => a.Id == Id).FirstOrDefaultAsync();
                 if (makeobj == null)
                     return ServiceResults.Errors.NotFound<Offer>("Offer", null);
-             
+
                 return ServiceResults.GetListSuccessfully(makeobj);
             }
             catch (Exception ex)
