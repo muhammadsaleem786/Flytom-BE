@@ -51,34 +51,33 @@ namespace Service.Implementations
                     var makeobj = await _repository.Offer.GetByIdAsync(model.Id);
                     if (makeobj == null)
                         return ServiceResults.Errors.NotFound<string>("Offer", null);
-                    makeobj.MovingDate = model.MovingDate;
-                    makeobj.IsFlexible = model.IsFlexible;
+                    makeobj.IsFlexible = Convert.ToBoolean(model.IsFlexible);
                     makeobj.DesiredMovingDate = model.DesiredMovingDate;
-                    makeobj.IsPackedItem = model.IsPackedItem;
-                    makeobj.IsStoreObject = model.IsStoreObject;
-                    makeobj.IsCurrentHome = model.IsCurrentHome;
-                    makeobj.IsInsureMoving = model.IsInsureMoving;
-                    makeobj.MovingLoad = model.MovingLoad;
-                    makeobj.NoOfPeople = model.NoOfPeople;
+                    makeobj.IsPackedItem = Convert.ToBoolean(model.IsPackedItem);
+                    makeobj.IsStoreObject = Convert.ToBoolean(model.IsStoreObject);
+                    makeobj.IsCurrentHome = Convert.ToBoolean(model.IsCurrentHome);
+                    makeobj.IsInsureMoving = Convert.ToBoolean(model.IsInsureMoving);
+                    makeobj.MovingLoadId = Convert.ToInt64(model.MovingLoadId);
+                    makeobj.NoOfPeopleId = Convert.ToInt64(model.NoOfPeopleId);
                     makeobj.CurrentAddress = model.CurrentAddress;
                     makeobj.StreetNo = model.StreetNo;
                     makeobj.SizeOfHome = model.SizeOfHome;
-                    makeobj.TotalRoom = model.TotalRoom;
-                    makeobj.HouseType = model.HouseType;
-                    makeobj.IsMovedStorageRoom = model.IsMovedStorageRoom;
-                    makeobj.IsMovedGarage = model.IsMovedGarage;
+                    makeobj.NewSizeOfHome = model.NewSizeOfHome;
+                    makeobj.TotalRoomId = Convert.ToInt64(model.TotalRoomId);
+                    makeobj.HouseTypeId = Convert.ToInt64(model.HouseTypeId);
+                    makeobj.IsMovedStorageRoom = Convert.ToBoolean(model.IsMovedStorageRoom);
+                    makeobj.IsMovedGarage = Convert.ToBoolean(model.IsMovedGarage);
                     makeobj.ParkingDistance = model.ParkingDistance;
                     makeobj.NewAddress = model.NewAddress;
                     makeobj.NewStreetNo = model.NewStreetNo;
                     makeobj.PostalCode = model.PostalCode;
-                    makeobj.NewTotalRoom = model.NewTotalRoom;
-                    makeobj.NewHouseType = model.NewHouseType;
-                    makeobj.ApartmentFloor = model.ApartmentFloor;
-                    makeobj.IsLift = model.IsLift;
+                    makeobj.NewTotalRoomId = Convert.ToInt64(model.NewTotalRoomId);
+                    makeobj.NewHouseTypeId = Convert.ToInt64(model.NewHouseTypeId);
                     makeobj.NewParkingDistance = model.NewParkingDistance;
-                    makeobj.IsMovingHeavyObject = model.IsMovingHeavyObject;
-                    makeobj.IsMovingValueableItem = model.IsMovingValueableItem;
+                    makeobj.IsMovingHeavyObject = Convert.ToBoolean(model.IsMovingHeavyObject);
+                    makeobj.IsMovingValueableItem = Convert.ToBoolean(model.IsMovingValueableItem);
                     makeobj.AdditionalInfo = model.AdditionalInfo;
+                    makeobj.NewPostalCode= model.NewPostalCode;
                     makeobj.Name = model.Name;
                     makeobj.Email = model.Email;
                     makeobj.Phone = model.Phone;
@@ -92,33 +91,35 @@ namespace Service.Implementations
                 {
                     Offer make = new Offer()
                     {
-                        MovingDate = model.MovingDate,
-                        IsFlexible = model.IsFlexible,
+                        FloorTypeId=Convert.ToInt64(model.FloorTypeId),
+                        NewFloorTypeId= Convert.ToInt64(model.NewFloorTypeId),
+                        FlexibleMovingDateId= Convert.ToInt64(model.FlexibleMovingDateId),
+                        IsFlexible = Convert.ToBoolean(model.IsFlexible),
                         DesiredMovingDate = model.DesiredMovingDate,
-                        IsPackedItem = model.IsPackedItem,
-                        IsStoreObject = model.IsStoreObject,
-                        IsCurrentHome = model.IsCurrentHome,
-                        IsInsureMoving = model.IsInsureMoving,
-                        MovingLoad = model.MovingLoad,
-                        NoOfPeople = model.NoOfPeople,
+                        IsPackedItem = Convert.ToBoolean(model.IsPackedItem),
+                        IsStoreObject = Convert.ToBoolean(model.IsStoreObject),
+                        IsCurrentHome = Convert.ToBoolean(model.IsCurrentHome),
+                        IsInsureMoving = Convert.ToBoolean(model.IsInsureMoving),
+                        MovingLoadId =Convert.ToInt64(model.MovingLoadId),
+                        NoOfPeopleId = Convert.ToInt64(model.NoOfPeopleId),
                         CurrentAddress = model.CurrentAddress,
                         StreetNo = model.StreetNo,
                         SizeOfHome = model.SizeOfHome,
-                        TotalRoom = model.TotalRoom,
-                        HouseType = model.HouseType,
-                        IsMovedStorageRoom = model.IsMovedStorageRoom,
-                        IsMovedGarage = model.IsMovedGarage,
+                        TotalRoomId = Convert.ToInt64(model.TotalRoomId),
+                        HouseTypeId = Convert.ToInt64(model.HouseTypeId),
+                        IsMovedStorageRoom =Convert.ToBoolean(model.IsMovedStorageRoom),
+                        IsMovedGarage = Convert.ToBoolean(model.IsMovedGarage),
                         ParkingDistance = model.ParkingDistance,
                         NewAddress = model.NewAddress,
                         NewStreetNo = model.NewStreetNo,
                         PostalCode = model.PostalCode,
-                        NewTotalRoom = model.NewTotalRoom,
-                        NewHouseType = model.NewHouseType,
-                        ApartmentFloor = model.ApartmentFloor,
-                        IsLift = model.IsLift,
+                        NewTotalRoomId = Convert.ToInt64(model.NewTotalRoomId),
+                        NewHouseTypeId = Convert.ToInt64(model.NewHouseTypeId),
+                        NewPostalCode = model.NewPostalCode,
+                        NewSizeOfHome = model.NewSizeOfHome,
                         NewParkingDistance = model.NewParkingDistance,
-                        IsMovingHeavyObject = model.IsMovingHeavyObject,
-                        IsMovingValueableItem = model.IsMovingValueableItem,
+                        IsMovingHeavyObject = Convert.ToBoolean(model.IsMovingHeavyObject),
+                        IsMovingValueableItem = Convert.ToBoolean(model.IsMovingValueableItem),
                         AdditionalInfo = model.AdditionalInfo,
                         Name = model.Name,
                         Email = model.Email,
@@ -126,7 +127,12 @@ namespace Service.Implementations
                     };
                     _repository.Offer.Create(make);
                     await _repository.SaveAsync();
-                    _ = emailServices.SendEmailWithPdf(make);
+                    var offerobj=await _repository.Offer.FindByCondition(a=>a.Id==make.Id)
+                        .Include(a=>a.sys_drop_down_value).Include(a=>a.sys_drop_down_value1).Include(a => a.sys_drop_down_value2)
+                        .Include(a => a.sys_drop_down_value3).Include(a => a.sys_drop_down_value4).Include(a => a.sys_drop_down_value5)
+                        .Include(a => a.sys_drop_down_value6).Include(a => a.sys_drop_down_value7).Include(a => a.sys_drop_down_value8)
+                        .FirstOrDefaultAsync();
+                    _ = emailServices.SendEmailWithPdf(offerobj);
                     return ServiceResults.AddedSuccessfully<string>("Offer");
                 }
 

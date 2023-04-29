@@ -17,7 +17,15 @@ namespace DTO.Models
             Vehicle4 = new HashSet<Vehicle>();
             Vehicle5 = new HashSet<Vehicle>();
             VehiclePart= new HashSet<VehiclePart>();
-
+            Offer = new HashSet<Offer>();
+            Offer1 = new HashSet<Offer>();
+            Offer2 = new HashSet<Offer>();
+            Offer3 = new HashSet<Offer>();
+            Offer4 = new HashSet<Offer>();
+            Offer5 = new HashSet<Offer>();
+            Offer6 = new HashSet<Offer>();
+            Offer7 = new HashSet<Offer>();
+            Offer8 = new HashSet<Offer>();
         }
 
         public long DropDownID { get; set; }
@@ -35,7 +43,14 @@ namespace DTO.Models
         public virtual ICollection<Vehicle> Vehicle5 { get; set; }
         public virtual ICollection<VehiclePart> VehiclePart { get; set; }
 
-        
-
+        public virtual ICollection<Offer> Offer { get; set; }
+        public virtual ICollection<Offer> Offer1 { get; set; }
+        public virtual ICollection<Offer> Offer2 { get; set; }
+        public virtual ICollection<Offer> Offer3{ get; set; }
+        public virtual ICollection<Offer> Offer4 { get; set; }
+        public virtual ICollection<Offer> Offer5 { get; set; }
+        public virtual ICollection<Offer> Offer6 { get; set; }
+        public virtual ICollection<Offer> Offer7 { get; set; }
+        public virtual ICollection<Offer> Offer8 { get; set; }
     }
 }

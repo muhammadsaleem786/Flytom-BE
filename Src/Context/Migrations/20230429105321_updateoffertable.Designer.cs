@@ -4,14 +4,16 @@ using Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Context.Migrations
 {
     [DbContext(typeof(FlyttomContext))]
-    partial class FlyttomContextModelSnapshot : ModelSnapshot
+    [Migration("20230429105321_updateoffertable")]
+    partial class updateoffertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,14 +328,14 @@ namespace Context.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("FlexibleMovingDateId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("FlexibleMovingDateId")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("FloorTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("FloorTypeId")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("HouseTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("HouseTypeId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCurrentHome")
                         .HasColumnType("bit");
@@ -367,8 +369,8 @@ namespace Context.Migrations
                     b.Property<bool>("IsStoreObject")
                         .HasColumnType("bit");
 
-                    b.Property<long>("MovingLoadId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("MovingLoadId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -376,11 +378,11 @@ namespace Context.Migrations
                     b.Property<string>("NewAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("NewFloorTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("NewFloorTypeId")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("NewHouseTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("NewHouseTypeId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NewParkingDistance")
                         .HasColumnType("nvarchar(max)");
@@ -394,11 +396,11 @@ namespace Context.Migrations
                     b.Property<string>("NewStreetNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("NewTotalRoomId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("NewTotalRoomId")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("NoOfPeopleId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("NoOfPeopleId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ParkingDistance")
                         .HasColumnType("nvarchar(max)");
@@ -415,8 +417,8 @@ namespace Context.Migrations
                     b.Property<string>("StreetNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("TotalRoomId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("TotalRoomId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -428,26 +430,8 @@ namespace Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlexibleMovingDateId");
-
-                    b.HasIndex("FloorTypeId");
-
-                    b.HasIndex("HouseTypeId");
-
                     b.HasIndex("Id")
                         .IsUnique();
-
-                    b.HasIndex("MovingLoadId");
-
-                    b.HasIndex("NewFloorTypeId");
-
-                    b.HasIndex("NewHouseTypeId");
-
-                    b.HasIndex("NewTotalRoomId");
-
-                    b.HasIndex("NoOfPeopleId");
-
-                    b.HasIndex("TotalRoomId");
 
                     b.HasIndex("Uuid")
                         .IsUnique();
@@ -845,73 +829,6 @@ namespace Context.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("DTO.Models.Offer", b =>
-                {
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value")
-                        .WithMany("Offer")
-                        .HasForeignKey("FlexibleMovingDateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value5")
-                        .WithMany("Offer5")
-                        .HasForeignKey("FloorTypeId");
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value4")
-                        .WithMany("Offer4")
-                        .HasForeignKey("HouseTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value1")
-                        .WithMany("Offer1")
-                        .HasForeignKey("MovingLoadId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value8")
-                        .WithMany("Offer8")
-                        .HasForeignKey("NewFloorTypeId");
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value7")
-                        .WithMany("Offer7")
-                        .HasForeignKey("NewHouseTypeId");
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value6")
-                        .WithMany("Offer6")
-                        .HasForeignKey("NewTotalRoomId");
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value2")
-                        .WithMany("Offer2")
-                        .HasForeignKey("NoOfPeopleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value3")
-                        .WithMany("Offer3")
-                        .HasForeignKey("TotalRoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("sys_drop_down_value");
-
-                    b.Navigation("sys_drop_down_value1");
-
-                    b.Navigation("sys_drop_down_value2");
-
-                    b.Navigation("sys_drop_down_value3");
-
-                    b.Navigation("sys_drop_down_value4");
-
-                    b.Navigation("sys_drop_down_value5");
-
-                    b.Navigation("sys_drop_down_value6");
-
-                    b.Navigation("sys_drop_down_value7");
-
-                    b.Navigation("sys_drop_down_value8");
-                });
-
             modelBuilder.Entity("DTO.Models.Vehicle", b =>
                 {
                     b.HasOne("DTO.Models.Account", "Account")
@@ -1090,24 +1007,6 @@ namespace Context.Migrations
 
             modelBuilder.Entity("DTO.Models.sys_drop_down_value", b =>
                 {
-                    b.Navigation("Offer");
-
-                    b.Navigation("Offer1");
-
-                    b.Navigation("Offer2");
-
-                    b.Navigation("Offer3");
-
-                    b.Navigation("Offer4");
-
-                    b.Navigation("Offer5");
-
-                    b.Navigation("Offer6");
-
-                    b.Navigation("Offer7");
-
-                    b.Navigation("Offer8");
-
                     b.Navigation("Vehicle");
 
                     b.Navigation("Vehicle1");

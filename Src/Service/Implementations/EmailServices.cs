@@ -88,49 +88,43 @@ namespace Service.Implementations
                 htmlbody = htmlbody.Replace("{Name}", make.Name);
                 htmlbody = htmlbody.Replace("{Email}", make.Email);
                 htmlbody = htmlbody.Replace("{Telephone}", make.Phone);
-                htmlbody = htmlbody.Replace("{MovingLoaction}", make.MovingDate.ToString("MM/dd/yyyy"));
-                htmlbody = htmlbody.Replace("{FlexibleMovingDt}", make.MovingDate.ToString("MM/dd/yyyy"));
-                htmlbody = htmlbody.Replace("{FlexibilityDate}", make.DesiredMovingDate.ToString("MM/dd/yyyy"));
-                htmlbody = htmlbody.Replace("{AgencyTo}", "");
+                htmlbody = htmlbody.Replace("{MovingLoaction}", "-");
+                htmlbody = htmlbody.Replace("{FlexibleMovingDt}", DateTime.UtcNow.ToString("MM/dd/yyyy"));
+                htmlbody = htmlbody.Replace("{FlexibilityDate}", "-");
+                htmlbody = htmlbody.Replace("{AgencyTo}", "-");
                 htmlbody = htmlbody.Replace("{StoreObject}", make.IsStoreObject == true ? "Yes" : "No");
                 htmlbody = htmlbody.Replace("{CurrentHome}", make.IsCurrentHome == true ? "Yes" : "No");
                 htmlbody = htmlbody.Replace("{InsureMoving}", make.IsInsureMoving == true ? "Yes" : "No");
-                htmlbody = htmlbody.Replace("{MovingLoad}", make.MovingLoad);
-                htmlbody = htmlbody.Replace("{NoOfPeople}", make.NoOfPeople);
+                htmlbody = htmlbody.Replace("{MovingLoad}", make.sys_drop_down_value1.Value);
+                htmlbody = htmlbody.Replace("{NoOfPeople}", make.sys_drop_down_value2.Value);
                 htmlbody = htmlbody.Replace("{CurrentAdd}", make.CurrentAddress);
                 htmlbody = htmlbody.Replace("{NOST}", make.StreetNo);
                 htmlbody = htmlbody.Replace("{HomeSize}", make.SizeOfHome);
-                htmlbody = htmlbody.Replace("{RoomNo}", make.TotalRoom);
-                htmlbody = htmlbody.Replace("{HousingTpe}", make.HouseType);
-                htmlbody = htmlbody.Replace("{MovingDt}", make.MovingDate.ToString("MM/dd/yyyy"));
-                htmlbody = htmlbody.Replace("{MovingFromStor}", "");
-                htmlbody = htmlbody.Replace("{MovingFrom}", make.MovingDate.ToString("MM/dd/yyyy"));
+                htmlbody = htmlbody.Replace("{RoomNo}", make.sys_drop_down_value3.Value);
+                htmlbody = htmlbody.Replace("{HousingTpe}", make.sys_drop_down_value4.Value);
+                htmlbody = htmlbody.Replace("{MovingDt}", "-");
+                htmlbody = htmlbody.Replace("{MovingFromStor}", "-");
+                htmlbody = htmlbody.Replace("{MovingFrom}", "-");
                 htmlbody = htmlbody.Replace("{DistanceToPark}", make.ParkingDistance);
                 htmlbody = htmlbody.Replace("{NAddress}", make.NewAddress);
                 htmlbody = htmlbody.Replace("{STNO}", make.NewStreetNo);
                 htmlbody = htmlbody.Replace("{PostalCod}", make.PostalCode);
-                htmlbody = htmlbody.Replace("{NORooms}", make.NewTotalRoom);
-                htmlbody = htmlbody.Replace("{HousingTyp}", make.NewHouseType);
-                htmlbody = htmlbody.Replace("{FloorNumber}", "");
-                htmlbody = htmlbody.Replace("{LiftAvail}", make.IsLift == true ? "Yes" : "No");
+                htmlbody = htmlbody.Replace("{NORooms}", make.sys_drop_down_value6.Value);
+                htmlbody = htmlbody.Replace("{HousingTyp}", make.sys_drop_down_value7.Value);
+                htmlbody = htmlbody.Replace("{FloorNumber}", "-");
+                htmlbody = htmlbody.Replace("{LiftAvail}", "-");
                 htmlbody = htmlbody.Replace("{DistanceTo}", make.NewParkingDistance);
                 htmlbody = htmlbody.Replace("{FloorNo}", make.NewStreetNo);
                 htmlbody = htmlbody.Replace("{MovingObj}", make.IsMovingHeavyObject == true ? "Yes" : "No");
                 htmlbody = htmlbody.Replace("{Fragile}", make.IsFlexible == true ? "Yes" : "No");
                 htmlbody = htmlbody.Replace("{AdditionalInfo}", make.AdditionalInfo);
-
                 // Convert HTML to PDF
                 string HTMLContent = htmlbody; //"Hello <b>World</b>";// Put your html tempelate here
-
-
                 var ms = GeneratePDF(HTMLContent);
                 ms.Position = 0;
                 System.Net.Mail.Attachment attachment;
                 attachment = new System.Net.Mail.Attachment(ms, "Order.pdf");
                 message.Attachments.Add(attachment);
-
-
-
                 //MemoryStream ms = new MemoryStream();
                 //TextReader txtReader = new StringReader(HTMLContent);
 
