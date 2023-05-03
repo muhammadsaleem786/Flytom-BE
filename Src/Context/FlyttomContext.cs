@@ -21,6 +21,9 @@ namespace Context
         public virtual DbSet<Offer> Offer { get; set; }
         public virtual DbSet<VehiclePart> VehiclePart { get; set; }
 
+        public virtual DbSet<ContentManagment> ContentManagment { get; set; }
+        public virtual DbSet<BannerDetail> BannerDetail { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -40,6 +43,8 @@ namespace Context
             modelBuilder.ApplyConfiguration(new DropDownMfConfiguration());
             modelBuilder.ApplyConfiguration(new DropDownValueConfiguration());
             modelBuilder.ApplyConfiguration(new VehiclePartConfiguration());
+            modelBuilder.ApplyConfiguration(new ContentManagmentConfiguration());
+            modelBuilder.ApplyConfiguration(new BannerDetailConfiguration());
         }
     }
 }

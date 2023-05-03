@@ -26,6 +26,8 @@ namespace DTO.Models
             Offer6 = new HashSet<Offer>();
             Offer7 = new HashSet<Offer>();
             Offer8 = new HashSet<Offer>();
+
+            ContentManagment = new HashSet<ContentManagment>();
         }
 
         public long DropDownID { get; set; }
@@ -52,5 +54,6 @@ namespace DTO.Models
         public virtual ICollection<Offer> Offer6 { get; set; }
         public virtual ICollection<Offer> Offer7 { get; set; }
         public virtual ICollection<Offer> Offer8 { get; set; }
+        public virtual ICollection<ContentManagment> ContentManagment { get; set; }
     }
 }

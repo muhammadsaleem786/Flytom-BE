@@ -35,7 +35,7 @@ namespace Service.Implementations.Unit
         private IDropDownValueService _DropDownValue;
         private IOfferService _Offer;
 
-
+        private IContentManagmentService _ContentManagment;
         public ServiceUnit(IRepositoryUnit repository, IFileManagementService fileManagementService, IMapper mapper, IEventLogger eventLogger, IHostingEnvironment hostingEnvironment)
         {
             _repository = repository;
@@ -44,6 +44,10 @@ namespace Service.Implementations.Unit
             _hostingEnvironment = hostingEnvironment;
             _fileManagement = fileManagementService;
         }
+
+        public IContentManagmentService ContentManagment =>
+                 _ContentManagment ??= new ContentManagmentServices(_repository, Email, _eventLogger, _mapper, _fileManagement);
+
         public IDropDownMfService DropDownMf =>
            _DropDownMf ??= new DropDownMfServices(_repository, Email, _eventLogger, _mapper, _fileManagement);
         public IDropDownValueService DropDownValue =>

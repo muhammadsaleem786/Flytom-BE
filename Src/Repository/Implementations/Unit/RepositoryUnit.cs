@@ -27,10 +27,19 @@ namespace Repository.Implementations.Unit
         private IOfferRepository _Offer;
         private IVehicleImageRepository _VehicleImage;
         private IVehiclePartRepository _vehiclePart;
+
+        private IContentManagmentRepository _ContentManagment;
+        private IBannerDetailRepository _BannerDetail;
         public RepositoryUnit(FlyttomContext db)
         {
             _db = db;
         }
+        public IContentManagmentRepository ContentManagment =>
+      _ContentManagment ??= new ContentManagmentRepository(_db);
+        public IBannerDetailRepository BannerDetail =>
+      _BannerDetail ??= new BannerDetailRepository(_db);
+
+
         public IVehiclePartRepository VehiclePart =>
        _vehiclePart ??= new VehiclePartRepository(_db);
 

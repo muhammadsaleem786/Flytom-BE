@@ -188,7 +188,7 @@ namespace Service.Implementations
                 {
                     foreach (var item in ImageList)
                     {
-                        var file = await fileManagementService.UploadImageFile(item, "Vehicle", new string[] { "image/png", "video/mp4", "image/jpeg", "image/jpg", "image/gif", "image/webp" });
+                        var file = await fileManagementService.UploadImageFile(item, "Images", new string[] { "image/png", "video/mp4", "image/jpeg", "image/jpg", "image/gif", "image/webp" });
                         if (file.isSuccess)
                         {
                             listFile.Add(new ImageList()

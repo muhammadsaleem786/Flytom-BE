@@ -21,7 +21,9 @@ namespace Repository.Interfaces.Unit
         IOfferRepository Offer { get; }
         IVehicleImageRepository VehicleImage { get; }
         IVehiclePartRepository VehiclePart { get; }
-         void DetachAllEntities();
+        IContentManagmentRepository ContentManagment { get; }
+        IBannerDetailRepository BannerDetail { get; }
+        void DetachAllEntities();
 
         void Save();
 
