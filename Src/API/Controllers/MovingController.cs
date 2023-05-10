@@ -135,7 +135,22 @@ namespace API.Controllers
                     Name = row.Field<string>("Name")
                 }).ToList();
 
-                
+                var floorList = AllData.Tables[7].AsEnumerable().Select(row => new
+                {
+                    ID = row.Field<long>("ID"),
+                    Name = row.Field<string>("Name")
+                }).ToList();
+                var EmployeeList = AllData.Tables[8].AsEnumerable().Select(row => new
+                {
+                    ID = row.Field<long>("ID"),
+                    Name = row.Field<string>("Name")
+                }).ToList();
+                var FloorsTypeList = AllData.Tables[9].AsEnumerable().Select(row => new
+                {
+                    ID = row.Field<long>("ID"),
+                    Name = row.Field<string>("Name")
+                }).ToList();
+
                 objResponse.ResultSet = new
                 {
                     FlexibleMovingLoadList = FlexibleMovingLoadList,
@@ -144,6 +159,9 @@ namespace API.Controllers
                     TotalRoomList = TotalRoomList,
                     HouseTypeList = HouseTypeList,
                     FloorsList = FloorsList,
+                    floorList= floorList,
+                    EmployeeList= EmployeeList,
+                    FloorsTypeList= FloorsTypeList,
                 };
             }
             catch (Exception ex)

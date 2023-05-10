@@ -159,7 +159,7 @@ namespace Service.Implementations
                 result.IsActive = makeobj.IsActive;               
                 result.BannerList = makeobj.BannerDetail.Where(a => !a.IsDeleted).Select(z => new BannerList
                 {
-                    ID = z.Id,
+                    Id = z.Id,
                     BannerImageUrl = z.BannerImageUrl,
                     BannerDescription= z.BannerDescription,
                     BannerTitle= z.BannerTitle,
@@ -172,7 +172,7 @@ namespace Service.Implementations
             }
         }
 
-        public async Task<ServiceResult<List<ContentManagmentResponse>>> GetList(decimal AccountId, int CurrentPageNo, int RecordPerPage, string VisibleColumnInfo, string SortName, string SortOrder, string SearchText, bool IgnorePaging = false)
+        public async Task<ServiceResult<List<ContentListManagmentResponse>>> GetList(decimal AccountId, int CurrentPageNo, int RecordPerPage, string VisibleColumnInfo, string SortName, string SortOrder, string SearchText, bool IgnorePaging = false)
         {
             try
             {
@@ -186,7 +186,7 @@ namespace Service.Implementations
                 makeobj = makeobj.Page(CurrentPageNo, RecordPerPage);
                 makeobj = makeobj.OrderByDescending(w => w.CreatedAt);
 
-                var result = makeobj.Select(z => new ContentManagmentResponse
+                var result = makeobj.Select(z => new ContentListManagmentResponse
                 {
                     ID = z.Id,
                     ContentTypeId = z.ContentTypeId,
@@ -195,13 +195,13 @@ namespace Service.Implementations
                     Name=z.sys_drop_down_value.Value,
                     BannerList = z.BannerDetail.Where(a => !a.IsDeleted).Select(z => new BannerList
                     {
-                        ID = z.Id,
+                        Id = z.Id,
                         BannerImageUrl = z.BannerImageUrl,
                         BannerDescription= z.BannerDescription,
                         BannerTitle= z.BannerTitle,
                     }).ToList(),
                 }).ToList();
-                return ServiceResults.GetListSuccessfully<List<ContentManagmentResponse>>(result, total);
+                return ServiceResults.GetListSuccessfully<List<ContentListManagmentResponse>>(result, total);
             }
             catch (Exception ex)
             {

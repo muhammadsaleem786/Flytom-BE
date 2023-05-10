@@ -10,6 +10,7 @@ namespace DTO.ViewModel.Vehicle
     public class VehicleResponseModel
     {
         public long ID { get; set; }
+        public string Name { get; set; }
         public long MakeId { get; set; }
         public long ModelId { get; set; }
         public string MakeName { get; set; }

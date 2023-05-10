@@ -11,6 +11,7 @@ namespace DTO.ViewModel.Vehicle
     public class VehicleResponse
     {
         public long Id { get; set; }
+        public string Name { get; set; }
         public long AccountId { get; set; }
         public long MakesId { get; set; }
         public long VehicleModelsId { get; set; }

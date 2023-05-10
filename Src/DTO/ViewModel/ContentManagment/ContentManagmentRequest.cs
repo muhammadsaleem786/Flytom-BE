@@ -9,6 +9,10 @@ namespace DTO.ViewModel.ContentManagment
 {
     public class ContentManagmentRequest
     {
+        public ContentManagmentRequest()
+        {
+            this.BannerList = new List<BannerList>();
+        }
         public long ID { get; set; }
         public string ContentTypeId { get; set; }
         public string ContentDescription { get; set; }
@@ -17,7 +21,7 @@ namespace DTO.ViewModel.ContentManagment
     }
     public class BannerList
     {
-        public long ID { get; set; }
+        public long Id { get; set; }
         public string BannerImageUrl { get; set; }
         public string BannerTitle { get; set; }
         public string BannerDescription { get; set; }

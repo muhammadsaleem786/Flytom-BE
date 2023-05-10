@@ -16,7 +16,7 @@ namespace Service.Interfaces
     {
         Task<ServiceResult<string>> AddUpdate(ContentManagmentRequest model, long AccountId);
         Task<ServiceResult<string>> Delete(long id, long AccountId);
-        Task<ServiceResult<List<ContentManagmentResponse>>> GetList(decimal AccountId, int CurrentPageNo, int RecordPerPage, string VisibleColumnInfo, string SortName, string SortOrder, string SearchText, bool IgnorePaging = false);
+        Task<ServiceResult<List<ContentListManagmentResponse>>> GetList(decimal AccountId, int CurrentPageNo, int RecordPerPage, string VisibleColumnInfo, string SortName, string SortOrder, string SearchText, bool IgnorePaging = false);
         Task<ServiceResult<ContentManagmentResponse>> GetById(int Id);
     }
 }

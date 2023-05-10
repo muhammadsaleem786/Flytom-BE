@@ -63,6 +63,7 @@ namespace Service.Implementations
                     obj.Length = model.Length;
                     obj.Width = model.Width;
                     obj.UpdatedAt = DateTime.UtcNow;
+                    obj.Name = model.Name;
                     if (model.VehiclePartRequest.Count > 0)
                     {
                         var VehiclePartObj = _repository.VehiclePart.FindByCondition(a => a.VehicleId == obj.Id).ToList();
@@ -136,6 +137,7 @@ namespace Service.Implementations
                         Height = model.Height,
                         Length = model.Length,
                         Width = model.Width,
+                        Name=model.Name,
                     };
                     if (model.VehiclePartRequest.Count > 0)
                     {
@@ -241,6 +243,7 @@ namespace Service.Implementations
 
                 var result = new VehicleResponse();
                 result.Id = makeobj.Id;
+                result.Name = makeobj.Name;
                 result.AccountId = makeobj.AccountId;
                 result.NoOfDoor = makeobj.NoOfDoor;
                 result.NoOfSeatId = makeobj.NoOfSeatId;
@@ -292,6 +295,7 @@ namespace Service.Implementations
                     return ServiceResults.Errors.NotFound<VehicleWebResponse>("Vehicle", null);
 
                 var result = new VehicleWebResponse();
+                result.Name = makeobj.Name;
                 result.NoOfDoor = makeobj.NoOfDoor;
                 result.TankCapacity = makeobj.TankCapacity;
                 result.CarType = makeobj.CarType == "P" ? "Personal Car" : "Vain";
@@ -361,6 +365,7 @@ namespace Service.Implementations
                 {
                     ID = z.Id,
                     MakeId = z.MakesId,
+                    Name=z.Name,
                     ModelId = z.VehicleModelsId,
                     MakeName = z.Makes == null ? "" : z.Makes.Name,
                     ModelName = z.VehicleModels == null ? "" : z.VehicleModels.Name,

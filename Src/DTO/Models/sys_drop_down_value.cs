@@ -32,6 +32,7 @@ namespace DTO.Models
 
         public long DropDownID { get; set; }
         public string Value { get; set; }
+        public string ValueInNorwegian { get; set; }
         public Nullable<int> DependedDropDownID { get; set; }
         public Nullable<int> DependedDropDownValueID { get; set; }
         public Nullable<bool> SystemGenerated { get; set; }

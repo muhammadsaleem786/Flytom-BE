@@ -10,6 +10,7 @@ namespace DTO.ViewModel.Vehicle
     {
        
         public long TankCapacity { get; set; }
+        public string Name { get; set; }
         public long NoOfDoor { get; set; }       
         public string Description { get; set; }
         public string LoadCapacity { get; set; }

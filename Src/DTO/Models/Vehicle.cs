@@ -22,6 +22,7 @@ namespace DTO.Models
         public long TankCapacity { get; set; }
         public long NoOfDoor { get; set; }
         public long Length { get; set; }
+        public string Name { get; set; }
         public long Height { get; set; }
         public long Width { get; set; }
         public long NoOfSeatId { get; set; }

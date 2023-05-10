@@ -4,14 +4,16 @@ using Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Context.Migrations
 {
     [DbContext(typeof(FlyttomContext))]
-    partial class FlyttomContextModelSnapshot : ModelSnapshot
+    [Migration("20230510063941_addupdateOfferTable")]
+    partial class addupdateOfferTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -625,9 +627,6 @@ namespace Context.Migrations
 
                     b.Property<long>("MakesId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("NoOfDoor")
                         .HasColumnType("bigint");

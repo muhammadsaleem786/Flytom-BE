@@ -42,5 +42,12 @@ namespace DTO.ViewModel.Offer
         public String Name { get; set; }
         public String Email { get; set; }
         public String Phone { get; set; }
+        public string ContactPerson { get; set; }
+        public long EmployeeId { get; set; }
+        public long WhichFloorTypeId { get; set; }
+        public bool Islift { get; set; }
+        public bool IsNewlift { get; set; }
+        public long NewWhichFloorTypeId { get; set; }
+        public string CompanyFloorTypeId { get; set; }
     }
 }

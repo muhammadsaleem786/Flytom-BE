@@ -7,6 +7,7 @@ namespace DTO.ViewModel.Token
     {
         public string Token { get; set; }
         public DateTime? ValidTo { get; set; }
+        public string Email { get; set; }
         public AccountViewModel UserInfo { get; set; }
     }
 }

@@ -228,6 +228,7 @@ namespace Service.Implementations
                 {
                     Token = token,
                     ValidTo= extdate,
+                    Email=account.Email,
                     UserInfo = null
                 };
                 return ServiceResults.SuccessfullyLogin<AuthModel>(resultData);

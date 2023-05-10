@@ -106,7 +106,7 @@ namespace API.Controllers
         }
         [Route("GetList")]
         [HttpGet]
-        public async Task<ActionResult<ServiceResult<List<ContentManagmentResponse>>>> GetList(int CurrentPageNo, int RecordPerPage, string VisibleColumnInfo, string SortName, string SortOrder, string SearchText, bool IgnorePaging = false)
+        public async Task<ActionResult<ServiceResult<List<ContentListManagmentResponse>>>> GetList(int CurrentPageNo, int RecordPerPage, string VisibleColumnInfo, string SortName, string SortOrder, string SearchText, bool IgnorePaging = false)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace API.Controllers
         }
         [Route("GetById")]
         [HttpGet]
-        public async Task<ActionResult<ServiceResult<ContentManagment>>> GetById(int Id)
+        public async Task<ActionResult<ServiceResult<ContentManagmentResponse>>> GetById(int Id)
         {
             try
             {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace DTO.ViewModel.Vehicle
         public string LoadCapacity { get; set; }
         public long RangeGiven { get; set; }
         public string Lift { get; set; }
-
+        public string Name { get; set; }
         public long DriveWheelType { get; set; }
         public string CarType { get; set; }
         public long LicenceType { get; set; }

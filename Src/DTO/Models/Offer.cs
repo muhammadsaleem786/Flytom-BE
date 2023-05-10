@@ -23,6 +23,7 @@ namespace DTO.Models
         public String PostalCode { get; set; }
         public long TotalRoomId { get; set; }
         public long HouseTypeId { get; set; }
+        public long EmployeeId { get; set; }
         public Boolean IsMovedStorageRoom { get; set; }
         public Boolean IsMovedGarage { get; set; }
         public String ParkingDistance { get; set; }
@@ -41,7 +42,11 @@ namespace DTO.Models
         public String Name { get; set; }
         public String Email { get; set; }
         public String Phone { get; set; }
-
+        public string ContactPerson { get; set; }
+        public long WhichFloorTypeId { get; set; }
+        public bool Islift { get; set; }
+        public bool IsNewlift { get; set; }
+        public long NewWhichFloorTypeId { get; set; }
         public virtual sys_drop_down_value sys_drop_down_value { get; set; }
         public virtual sys_drop_down_value sys_drop_down_value1 { get; set; }
         public virtual sys_drop_down_value sys_drop_down_value2 { get; set; }
