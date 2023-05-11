@@ -43,11 +43,11 @@ namespace DTO.ViewModel.Offer
         public String Email { get; set; }
         public String Phone { get; set; }
         public string ContactPerson { get; set; }
-        public long EmployeeId { get; set; }
-        public long WhichFloorTypeId { get; set; }
-        public bool Islift { get; set; }
-        public bool IsNewlift { get; set; }
-        public long NewWhichFloorTypeId { get; set; }
+        public String EmployeeId { get; set; }
+        public String WhichFloorTypeId { get; set; }
+        public String Islift { get; set; }
+        public String IsNewlift { get; set; }
+        public String NewWhichFloorTypeId { get; set; }
         public string CompanyFloorTypeId { get; set; }
     }
 }
