@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    public interface IOfferRepository : IRepositoryBase<MovingOffer>
+    public interface IContactRepository : IRepositoryBase<Contact>
     {
-        Task<MovingOffer> GetByIdAsync(long id);
+        Task<Contact> GetByIdAsync(long id);
     }
 }

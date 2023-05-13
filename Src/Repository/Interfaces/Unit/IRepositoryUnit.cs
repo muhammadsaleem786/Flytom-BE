@@ -23,6 +23,8 @@ namespace Repository.Interfaces.Unit
         IVehiclePartRepository VehiclePart { get; }
         IContentManagmentRepository ContentManagment { get; }
         IBannerDetailRepository BannerDetail { get; }
+        IDeliveryRepository Delivery { get; }
+        IContactRepository Contact { get; }
         void DetachAllEntities();
 
         void Save();

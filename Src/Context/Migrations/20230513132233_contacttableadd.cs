@@ -3,23 +3,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Context.Migrations
 {
-    public partial class addImageTable : Migration
+    public partial class contacttableadd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "SteeringTyep",
-                table: "Vehicle",
-                newName: "SteeringType");
-
             migrationBuilder.CreateTable(
-                name: "VehicleImage",
+                name: "Contact",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    VehicleId = table.Column<long>(type: "bigint", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Uuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -28,42 +26,26 @@ namespace Context.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleImage", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_VehicleImage_Vehicle_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicle",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Contact", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_VehicleImage_Id",
-                table: "VehicleImage",
+                name: "IX_Contact_Id",
+                table: "Contact",
                 column: "Id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_VehicleImage_Uuid",
-                table: "VehicleImage",
+                name: "IX_Contact_Uuid",
+                table: "Contact",
                 column: "Uuid",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VehicleImage_VehicleId",
-                table: "VehicleImage",
-                column: "VehicleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "VehicleImage");
-
-            migrationBuilder.RenameColumn(
-                name: "SteeringType",
-                table: "Vehicle",
-                newName: "SteeringTyep");
+                name: "Contact");
         }
     }
 }

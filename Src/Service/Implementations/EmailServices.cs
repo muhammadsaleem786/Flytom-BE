@@ -68,7 +68,7 @@ namespace Service.Implementations
             }
         }
 
-        public async Task<bool> SendEmailWithPdf(Offer make)
+        public async Task<bool> SendEmailWithPdf(MovingOffer make)
         {
             try
             {
@@ -92,9 +92,9 @@ namespace Service.Implementations
                 htmlbody = htmlbody.Replace("{FlexibleMovingDt}", DateTime.UtcNow.ToString("MM/dd/yyyy"));
                 htmlbody = htmlbody.Replace("{FlexibilityDate}", "-");
                 htmlbody = htmlbody.Replace("{AgencyTo}", "-");
-                htmlbody = htmlbody.Replace("{StoreObject}", make.IsStoreObject == true ? "Yes" : "No");
-                htmlbody = htmlbody.Replace("{CurrentHome}", make.IsCurrentHome == true ? "Yes" : "No");
-                htmlbody = htmlbody.Replace("{InsureMoving}", make.IsInsureMoving == true ? "Yes" : "No");
+                htmlbody = htmlbody.Replace("{StoreObject}", "-");
+                htmlbody = htmlbody.Replace("{CurrentHome}", "-");
+                htmlbody = htmlbody.Replace("{InsureMoving}", "-");
                 htmlbody = htmlbody.Replace("{MovingLoad}", make.sys_drop_down_value1.Value);
                 htmlbody = htmlbody.Replace("{NoOfPeople}", make.sys_drop_down_value2.Value);
                 htmlbody = htmlbody.Replace("{CurrentAdd}", make.CurrentAddress);
@@ -109,52 +109,23 @@ namespace Service.Implementations
                 htmlbody = htmlbody.Replace("{NAddress}", make.NewAddress);
                 htmlbody = htmlbody.Replace("{STNO}", make.NewStreetNo);
                 htmlbody = htmlbody.Replace("{PostalCod}", make.PostalCode);
-                htmlbody = htmlbody.Replace("{NORooms}", make.sys_drop_down_value6.Value);
-                htmlbody = htmlbody.Replace("{HousingTyp}", make.sys_drop_down_value7.Value);
+                htmlbody = htmlbody.Replace("{NORooms}", "-");
+                htmlbody = htmlbody.Replace("{HousingTyp}", "-");
                 htmlbody = htmlbody.Replace("{FloorNumber}", "-");
                 htmlbody = htmlbody.Replace("{LiftAvail}", "-");
                 htmlbody = htmlbody.Replace("{DistanceTo}", make.NewParkingDistance);
                 htmlbody = htmlbody.Replace("{FloorNo}", make.NewStreetNo);
-                htmlbody = htmlbody.Replace("{MovingObj}", make.IsMovingHeavyObject == true ? "Yes" : "No");
-                htmlbody = htmlbody.Replace("{Fragile}", make.IsFlexible == true ? "Yes" : "No");
+                htmlbody = htmlbody.Replace("{MovingObj}", "-");
+                htmlbody = htmlbody.Replace("{Fragile}", "-");
                 htmlbody = htmlbody.Replace("{AdditionalInfo}", make.AdditionalInfo);
                 // Convert HTML to PDF
-                string HTMLContent = htmlbody; //"Hello <b>World</b>";// Put your html tempelate here
+                string HTMLContent = htmlbody;
                 var ms = GeneratePDF(HTMLContent);
                 ms.Position = 0;
                 System.Net.Mail.Attachment attachment;
                 attachment = new System.Net.Mail.Attachment(ms, "Order.pdf");
                 message.Attachments.Add(attachment);
-                //MemoryStream ms = new MemoryStream();
-                //TextReader txtReader = new StringReader(HTMLContent);
-
-                //// 1: create object of a itextsharp document class  
-                //Document doc = new Document(PageSize.A4, 25, 25, 25, 25);
-
-                //// 2: we create a itextsharp pdfwriter that listens to the document and directs a XML-stream to a file  
-                //PdfWriter PdfWriter = PdfWriter.GetInstance(doc, ms);
-                //PdfWriter.CloseStream = false;
-
-                //// 3: we create a worker parse the document  
-                //HTMLWorker htmlWorker = new HTMLWorker(doc);
-
-                //// 4: we open document and start the worker on the document  
-                //doc.Open();
-                //htmlWorker.StartDocument();
-
-
-                //// 5: parse the html into the document  
-                //htmlWorker.Parse(txtReader);
-                //// 6: close the document and the worker  
-                //htmlWorker.EndDocument();
-                //htmlWorker.Close();
-                //doc.Close();
-
-                //ms.Flush(); //Always catches me out
-                //ms.Position = 0; //Not sure if this is required
                 message.Body = htmlbody;
-                //message.Attachments.Add(new Attachment(ms, "template.pdf", "application/pdf"));
-
                 return await SendEmail(message);
             }
             catch (Exception ex)

@@ -11,19 +11,19 @@ using Repository.Implementations.Base;
 
 namespace Repository.Implementations
 {
-    internal class OfferRepository : RepositoryBase<MovingOffer>, IOfferRepository
+    internal class ContactRepository : RepositoryBase<Contact>, IContactRepository
     {
 
         private readonly FlyttomContext _db;
 
-        public OfferRepository(FlyttomContext db)
+        public ContactRepository(FlyttomContext db)
             : base(db)
         {
             _db = db;
         }
 
 
-        public async Task<MovingOffer> GetByIdAsync(long id)
+        public async Task<Contact> GetByIdAsync(long id)
         {
             return await FindByCondition(f => f.Id == id).FirstOrDefaultAsync();
         }

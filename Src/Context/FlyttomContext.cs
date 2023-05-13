@@ -18,11 +18,13 @@ namespace Context
 
         public virtual DbSet<sys_drop_down_mf> sys_drop_down_mf { get; set; }
         public virtual DbSet<sys_drop_down_value> sys_drop_down_value { get; set; }
-        public virtual DbSet<Offer> Offer { get; set; }
+        public virtual DbSet<MovingOffer> Offer { get; set; }
         public virtual DbSet<VehiclePart> VehiclePart { get; set; }
 
         public virtual DbSet<ContentManagment> ContentManagment { get; set; }
         public virtual DbSet<BannerDetail> BannerDetail { get; set; }
+        public virtual DbSet<Delivery> Delivery { get; set; }
+        public virtual DbSet<Contact> Contact { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -45,6 +47,10 @@ namespace Context
             modelBuilder.ApplyConfiguration(new VehiclePartConfiguration());
             modelBuilder.ApplyConfiguration(new ContentManagmentConfiguration());
             modelBuilder.ApplyConfiguration(new BannerDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new DeliveryConfiguration());
+            modelBuilder.ApplyConfiguration(new ContactConfiguration());
+
+            
         }
     }
 }

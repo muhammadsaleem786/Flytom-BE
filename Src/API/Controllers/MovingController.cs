@@ -74,7 +74,7 @@ namespace API.Controllers
         }
         [Route("GetOfferById")]
         [HttpGet]
-        public async Task<ActionResult<ServiceResult<Offer>>> GetOfferById(int Id)
+        public async Task<ActionResult<ServiceResult<MovingOffer>>> GetOfferById(int Id)
         {
             try
             {

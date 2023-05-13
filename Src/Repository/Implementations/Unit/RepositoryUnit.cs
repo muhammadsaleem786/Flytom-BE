@@ -30,10 +30,18 @@ namespace Repository.Implementations.Unit
 
         private IContentManagmentRepository _ContentManagment;
         private IBannerDetailRepository _BannerDetail;
+        private IDeliveryRepository _Delivery;
+        private IContactRepository _Contact;
         public RepositoryUnit(FlyttomContext db)
         {
             _db = db;
         }
+        public IContactRepository Contact =>
+    _Contact ??= new ContactRepository(_db);
+
+        public IDeliveryRepository Delivery =>
+     _Delivery ??= new DeliveryRepository(_db);
+
         public IContentManagmentRepository ContentManagment =>
       _ContentManagment ??= new ContentManagmentRepository(_db);
         public IBannerDetailRepository BannerDetail =>

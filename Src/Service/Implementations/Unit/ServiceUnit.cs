@@ -36,6 +36,9 @@ namespace Service.Implementations.Unit
         private IOfferService _Offer;
 
         private IContentManagmentService _ContentManagment;
+        private IDeliveryService _Delivery;
+        private IContactService _Contact;
+
         public ServiceUnit(IRepositoryUnit repository, IFileManagementService fileManagementService, IMapper mapper, IEventLogger eventLogger, IHostingEnvironment hostingEnvironment)
         {
             _repository = repository;
@@ -44,6 +47,10 @@ namespace Service.Implementations.Unit
             _hostingEnvironment = hostingEnvironment;
             _fileManagement = fileManagementService;
         }
+        public IContactService Contact =>
+        _Contact ??= new ContactServices(_repository, Email, _eventLogger, _mapper, _fileManagement);
+        public IDeliveryService Delivery =>
+        _Delivery ??= new DeliveryServices(_repository, Email, _eventLogger, _mapper, _fileManagement);
 
         public IContentManagmentService ContentManagment =>
                  _ContentManagment ??= new ContentManagmentServices(_repository, Email, _eventLogger, _mapper, _fileManagement);

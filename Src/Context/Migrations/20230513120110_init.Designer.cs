@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Context.Migrations
 {
     [DbContext(typeof(FlyttomContext))]
-    [Migration("20230429111432_updateofferRelationship")]
-    partial class updateofferRelationship
+    [Migration("20230513120110_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,6 +210,57 @@ namespace Context.Migrations
                     b.ToTable("AuthTokens");
                 });
 
+            modelBuilder.Entity("DTO.Models.BannerDetail", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BannerDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BannerImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BannerTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ContentManagmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Uuid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentManagmentId");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("Uuid")
+                        .IsUnique();
+
+                    b.ToTable("BannerDetail");
+                });
+
             modelBuilder.Entity("DTO.Models.Category", b =>
                 {
                     b.Property<long>("Id")
@@ -258,6 +309,121 @@ namespace Context.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("DTO.Models.ContentManagment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ContentTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Uuid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentTypeId");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("Uuid")
+                        .IsUnique();
+
+                    b.ToTable("ContentManagment");
+                });
+
+            modelBuilder.Entity("DTO.Models.Delivery", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ArealBRA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FloorTypeId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("HousingTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("MoveingDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Uuid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.Property<string>("VolumeCBMM3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("Uuid")
+                        .IsUnique();
+
+                    b.ToTable("Delivery");
+                });
+
             modelBuilder.Entity("DTO.Models.Makes", b =>
                 {
                     b.Property<long>("Id")
@@ -303,7 +469,7 @@ namespace Context.Migrations
                     b.ToTable("Makes");
                 });
 
-            modelBuilder.Entity("DTO.Models.Offer", b =>
+            modelBuilder.Entity("DTO.Models.MovingOffer", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -322,14 +488,8 @@ namespace Context.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DesiredMovingDate")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("FlexibleMovingDateId")
-                        .HasColumnType("bigint");
 
                     b.Property<long>("FloorTypeId")
                         .HasColumnType("bigint");
@@ -337,40 +497,22 @@ namespace Context.Migrations
                     b.Property<long>("HouseTypeId")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("IsCurrentHome")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<bool>("IsFlexible")
+                    b.Property<bool>("IsPacking")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsInsureMoving")
+                    b.Property<bool>("IsWarehousehotel")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsMovedGarage")
+                    b.Property<bool>("Ispiano")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsMovedStorageRoom")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsMovingHeavyObject")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsMovingValueableItem")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsPackedItem")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsStoreObject")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("MovingLoadId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("MovingDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -399,8 +541,8 @@ namespace Context.Migrations
                     b.Property<long>("NewTotalRoomId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("NoOfPeopleId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Newgarage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ParkingDistance")
                         .HasColumnType("nvarchar(max)");
@@ -428,9 +570,10 @@ namespace Context.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
-                    b.HasKey("Id");
+                    b.Property<string>("garage")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("FlexibleMovingDateId");
+                    b.HasKey("Id");
 
                     b.HasIndex("FloorTypeId");
 
@@ -439,15 +582,11 @@ namespace Context.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("MovingLoadId");
-
                     b.HasIndex("NewFloorTypeId");
 
                     b.HasIndex("NewHouseTypeId");
 
                     b.HasIndex("NewTotalRoomId");
-
-                    b.HasIndex("NoOfPeopleId");
 
                     b.HasIndex("TotalRoomId");
 
@@ -510,6 +649,9 @@ namespace Context.Migrations
 
                     b.Property<long>("MakesId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("NoOfDoor")
                         .HasColumnType("bigint");
@@ -803,6 +945,9 @@ namespace Context.Migrations
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ValueInNorwegian")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DropDownID");
@@ -825,6 +970,17 @@ namespace Context.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("DTO.Models.BannerDetail", b =>
+                {
+                    b.HasOne("DTO.Models.ContentManagment", "ContentManagment")
+                        .WithMany("BannerDetail")
+                        .HasForeignKey("ContentManagmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ContentManagment");
+                });
+
             modelBuilder.Entity("DTO.Models.Category", b =>
                 {
                     b.HasOne("DTO.Models.Account", "Account")
@@ -834,6 +990,17 @@ namespace Context.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("DTO.Models.ContentManagment", b =>
+                {
+                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value")
+                        .WithMany("ContentManagment")
+                        .HasForeignKey("ContentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("sys_drop_down_value");
                 });
 
             modelBuilder.Entity("DTO.Models.Makes", b =>
@@ -847,50 +1014,40 @@ namespace Context.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("DTO.Models.Offer", b =>
+            modelBuilder.Entity("DTO.Models.MovingOffer", b =>
                 {
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value")
-                        .WithMany("Offer")
-                        .HasForeignKey("FlexibleMovingDateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value5")
-                        .WithMany("Offer5")
-                        .HasForeignKey("FloorTypeId");
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value4")
-                        .WithMany("Offer4")
-                        .HasForeignKey("HouseTypeId")
+                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value2")
+                        .WithMany("Offer2")
+                        .HasForeignKey("FloorTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value1")
                         .WithMany("Offer1")
-                        .HasForeignKey("MovingLoadId")
+                        .HasForeignKey("HouseTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value8")
-                        .WithMany("Offer8")
-                        .HasForeignKey("NewFloorTypeId");
+                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value5")
+                        .WithMany("Offer5")
+                        .HasForeignKey("NewFloorTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value7")
-                        .WithMany("Offer7")
-                        .HasForeignKey("NewHouseTypeId");
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value6")
-                        .WithMany("Offer6")
-                        .HasForeignKey("NewTotalRoomId");
-
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value2")
-                        .WithMany("Offer2")
-                        .HasForeignKey("NoOfPeopleId")
+                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value4")
+                        .WithMany("Offer4")
+                        .HasForeignKey("NewHouseTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value3")
                         .WithMany("Offer3")
+                        .HasForeignKey("NewTotalRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value")
+                        .WithMany("Offer")
                         .HasForeignKey("TotalRoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -906,12 +1063,6 @@ namespace Context.Migrations
                     b.Navigation("sys_drop_down_value4");
 
                     b.Navigation("sys_drop_down_value5");
-
-                    b.Navigation("sys_drop_down_value6");
-
-                    b.Navigation("sys_drop_down_value7");
-
-                    b.Navigation("sys_drop_down_value8");
                 });
 
             modelBuilder.Entity("DTO.Models.Vehicle", b =>
@@ -1073,6 +1224,11 @@ namespace Context.Migrations
                     b.Navigation("Vehicle");
                 });
 
+            modelBuilder.Entity("DTO.Models.ContentManagment", b =>
+                {
+                    b.Navigation("BannerDetail");
+                });
+
             modelBuilder.Entity("DTO.Models.Makes", b =>
                 {
                     b.Navigation("VehicleModels");
@@ -1092,6 +1248,8 @@ namespace Context.Migrations
 
             modelBuilder.Entity("DTO.Models.sys_drop_down_value", b =>
                 {
+                    b.Navigation("ContentManagment");
+
                     b.Navigation("Offer");
 
                     b.Navigation("Offer1");
@@ -1103,12 +1261,6 @@ namespace Context.Migrations
                     b.Navigation("Offer4");
 
                     b.Navigation("Offer5");
-
-                    b.Navigation("Offer6");
-
-                    b.Navigation("Offer7");
-
-                    b.Navigation("Offer8");
 
                     b.Navigation("Vehicle");
 

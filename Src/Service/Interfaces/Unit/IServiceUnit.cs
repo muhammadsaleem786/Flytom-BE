@@ -19,5 +19,7 @@ namespace Service.Interfaces.Unit
         IDropDownValueService DropDownValue { get; }
         IOfferService Offer { get; }
         IContentManagmentService ContentManagment { get; }
+        IDeliveryService Delivery { get; }
+        IContactService Contact { get; }
     }
 }
