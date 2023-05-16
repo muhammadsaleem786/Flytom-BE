@@ -48,15 +48,16 @@ namespace Service.Implementations
         {
             try
             {
-                if (model.Id != 0)
+                if (model.ID != 0)
                 {
-                    var makeobj = await _repository.Contact.GetByIdAsync(model.Id);
+                    var makeobj = await _repository.Contact.GetByIdAsync(model.ID);
                     if (makeobj == null)
                         return ServiceResults.Errors.NotFound<string>("Contact", null);
 
                     makeobj.Name = model.Name;
                     makeobj.Email = model.Email;
                     makeobj.Phone = model.Phone;
+                    makeobj.EnquiryTypeId = Convert.ToInt64(model.EnquiryTypeId);
                     makeobj.UpdatedAt = DateTime.UtcNow;
                     _repository.Contact.Update(makeobj);
                     await _repository.SaveAsync();
@@ -70,6 +71,7 @@ namespace Service.Implementations
                         Name = model.Name,
                         Email = model.Email,
                         Phone = model.Phone,
+                        EnquiryTypeId=Convert.ToInt64(model.EnquiryTypeId),
                         CreatedAt = DateTime.UtcNow,
                     };
                     _repository.Contact.Create(make);
@@ -84,6 +86,34 @@ namespace Service.Implementations
             }
         }
 
+        public async Task<ServiceResult<List<ContactRequest>>> GetContactList(decimal AccountId, int CurrentPageNo, int RecordPerPage, string VisibleColumnInfo, string SortName, string SortOrder, string SearchText, bool IgnorePaging = false)
+        {
+            try
+            {
+                var makeobj = _repository.Contact.FindAll().Where(a => a.IsDeleted == false).AsQueryable();
+                if (!string.IsNullOrEmpty(SearchText))
+                {
+                    makeobj = makeobj.Where(x => x.Name.ToLower().Contains(SearchText.ToLower()));
+                }
+                var total = await makeobj.CountAsync();
+                makeobj = makeobj.Page(CurrentPageNo, RecordPerPage);
+                makeobj = makeobj.OrderByDescending(w => w.CreatedAt);
+                var result = makeobj.Select(z => new ContactRequest
+                {
+                    ID = z.Id,
+                    Name = z.Name,
+                    Email = z.Email,
+                    Phone=z.Phone
+                }).ToList();
+                return ServiceResults.GetListSuccessfully<List<ContactRequest>>(result, total);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
 
         public async Task<ServiceResult<string>> Delete(long id, long AccountId)
         {

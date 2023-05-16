@@ -3,6 +3,7 @@ using API.Utils;
 using DTO.Models;
 using DTO.ViewModel;
 using DTO.ViewModel.Account;
+using DTO.ViewModel.Contact;
 using DTO.ViewModel.Make;
 using DTO.ViewModel.Offer;
 using DTO.ViewModel.Token;
@@ -29,6 +30,93 @@ namespace API.Controllers
         {
             _service = service;
         }
+        #region
+        //Contact Api
+        [Route("ContactAddUpdate")]
+        [HttpPost]
+        public async Task<ActionResult<ServiceResult<string>>> ContactAddUpdate(ContactRequest model)
+        {
+            try
+            {
+                //var token = RequestUtil.GetToken(HttpContext);
+                //var tokenModel = _service.Token.ValidateToken(token);
+                var result = await _service.Contact.AddUpdate(model, 0);
+
+                if (result.IsSuccess)
+                    return Ok(result);
+                else
+                    return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ServiceResults.Errors.UnhandledError<object>(ex.Message.ToString(), null));
+            }
+        }
+
+        [Route("ContactDelete")]
+        [HttpDelete]
+        [CheckJwtToken]
+        public async Task<ActionResult<ServiceResult<string>>> ContactDelete(long Id)
+        {
+            try
+            {
+                var token = RequestUtil.GetToken(HttpContext);
+                var tokenModel = _service.Token.ValidateToken(token);
+                var result = await _service.Contact.Delete(Id, tokenModel.Id);
+
+                if (result.IsSuccess)
+                    return Ok(result);
+                else
+                    return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ServiceResults.Errors.UnhandledError<object>(ex.Message.ToString(), null));
+            }
+        }
+        [Route("GetContactList")]
+        [HttpGet]
+        public async Task<ActionResult<ServiceResult<List<MakeResponseList>>>> GetContactList(int CurrentPageNo, int RecordPerPage, string VisibleColumnInfo, string SortName, string SortOrder, string SearchText, bool IgnorePaging = false)
+        {
+            try
+            {
+                var token = RequestUtil.GetToken(HttpContext);
+                var tokenModel = _service.Token.ValidateToken(token);
+                decimal AccountId = 0;
+                var result = await _service.Contact.GetContactList(AccountId, CurrentPageNo, RecordPerPage, VisibleColumnInfo, SortName, SortOrder, SearchText, IgnorePaging = false);
+
+                if (result.IsSuccess)
+                    return Ok(result);
+                else
+                    return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ServiceResults.Errors.UnhandledError<object>(ex.Message.ToString(), null));
+            }
+        }
+        [Route("GetContactById")]
+        [HttpGet]
+        public async Task<ActionResult<ServiceResult<Contact>>> GetContactById(int Id)
+        {
+            try
+            {
+                var token = RequestUtil.GetToken(HttpContext);
+                var tokenModel = _service.Token.ValidateToken(token);
+
+                var result = await _service.Contact.GetById(Id);
+
+                if (result.IsSuccess)
+                    return Ok(result);
+                else
+                    return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ServiceResults.Errors.UnhandledError<object>(ex.Message.ToString(), null));
+            }
+        }
+        #endregion
         [Route("AddUpdate")]
         [HttpPost]
         //[CheckJwtToken]
@@ -150,7 +238,11 @@ namespace API.Controllers
                     ID = row.Field<long>("ID"),
                     Name = row.Field<string>("Name")
                 }).ToList();
-
+                var ContactList = AllData.Tables[10].AsEnumerable().Select(row => new
+                {
+                    ID = row.Field<long>("ID"),
+                    Name = row.Field<string>("Name")
+                }).ToList();
                 objResponse.ResultSet = new
                 {
                     FlexibleMovingLoadList = FlexibleMovingLoadList,
@@ -162,6 +254,7 @@ namespace API.Controllers
                     floorList= floorList,
                     EmployeeList= EmployeeList,
                     FloorsTypeList= FloorsTypeList,
+                    ContactList= ContactList,
                 };
             }
             catch (Exception ex)
