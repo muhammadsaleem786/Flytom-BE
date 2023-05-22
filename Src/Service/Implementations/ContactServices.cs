@@ -57,11 +57,13 @@ namespace Service.Implementations
                     makeobj.Name = model.Name;
                     makeobj.Email = model.Email;
                     makeobj.Phone = model.Phone;
+                    makeobj.Description = model.Description;
+                    makeobj.ContactType = model.ContactType;
                     makeobj.EnquiryTypeId = Convert.ToInt64(model.EnquiryTypeId);
                     makeobj.UpdatedAt = DateTime.UtcNow;
                     _repository.Contact.Update(makeobj);
                     await _repository.SaveAsync();
-                    //_ = emailServices.SendEmailWithPdf(makeobj);
+                    _ = emailServices.SendEmailContact(makeobj);
                     return ServiceResults.UpdatedSuccessfully<string>("Contact");
                 }
                 else
@@ -71,11 +73,16 @@ namespace Service.Implementations
                         Name = model.Name,
                         Email = model.Email,
                         Phone = model.Phone,
+                        Description=model.Description,
                         EnquiryTypeId=Convert.ToInt64(model.EnquiryTypeId),
+                        ContactType=model.ContactType,
                         CreatedAt = DateTime.UtcNow,
                     };
                     _repository.Contact.Create(make);
                     await _repository.SaveAsync();
+                    var contactobj = await _repository.Contact.FindByCondition(a => a.Id == make.Id)
+                       .Include(a => a.sys_drop_down_value).FirstOrDefaultAsync();
+                    _ = emailServices.SendEmailContact(contactobj);
 
                     return ServiceResults.AddedSuccessfully<string>("Contact");
                 }

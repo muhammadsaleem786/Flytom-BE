@@ -77,6 +77,7 @@ namespace Service.Implementations
                     makeobj.Name = model.Name;
                     makeobj.Email = model.Email;
                     makeobj.Phone = model.Phone;
+                    makeobj.ContactType = model.ContactType;
                     makeobj.UpdatedAt = DateTime.UtcNow;
                     _repository.Offer.Update(makeobj);
                     await _repository.SaveAsync();
@@ -110,6 +111,7 @@ namespace Service.Implementations
                         Newgarage = model.Newgarage,
                         NewParkingDistance = model.NewParkingDistance,
                         AdditionalInfo = model.AdditionalInfo,
+                        ContactType=model.ContactType,
                         Name = model.Name,
                         Email = model.Email,
                         Phone = model.Phone,

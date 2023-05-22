@@ -19,6 +19,7 @@ namespace DTO.ViewModel.Offer
         public String SizeOfHome { get; set; }
         public String TotalRoomId { get; set; }
         public String HouseTypeId { get; set; }
+        public string ContactType { get; set; }
         public String FloorTypeId { get; set; }
         public String garage { get; set; }
         public String ParkingDistance { get; set; }

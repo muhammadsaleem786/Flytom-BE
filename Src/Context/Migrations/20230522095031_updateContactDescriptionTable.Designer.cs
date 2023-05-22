@@ -4,14 +4,16 @@ using Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Context.Migrations
 {
     [DbContext(typeof(FlyttomContext))]
-    partial class FlyttomContextModelSnapshot : ModelSnapshot
+    [Migration("20230522095031_updateContactDescriptionTable")]
+    partial class updateContactDescriptionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,9 +316,6 @@ namespace Context.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ContactType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -352,8 +351,6 @@ namespace Context.Migrations
                         .HasDefaultValueSql("NEWID()");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EnquiryTypeId");
 
                     b.HasIndex("Id")
                         .IsUnique();
@@ -532,9 +529,6 @@ namespace Context.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdditionalInfo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContactType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1050,17 +1044,6 @@ namespace Context.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("DTO.Models.Contact", b =>
-                {
-                    b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value")
-                        .WithMany("ContactUs")
-                        .HasForeignKey("EnquiryTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("sys_drop_down_value");
-                });
-
             modelBuilder.Entity("DTO.Models.ContentManagment", b =>
                 {
                     b.HasOne("DTO.Models.sys_drop_down_value", "sys_drop_down_value")
@@ -1317,8 +1300,6 @@ namespace Context.Migrations
 
             modelBuilder.Entity("DTO.Models.sys_drop_down_value", b =>
                 {
-                    b.Navigation("ContactUs");
-
                     b.Navigation("ContentManagment");
 
                     b.Navigation("Offer");

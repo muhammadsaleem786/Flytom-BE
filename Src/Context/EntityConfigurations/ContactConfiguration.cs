@@ -10,12 +10,15 @@ namespace Context.EntityConfigurations
         public void Configure(EntityTypeBuilder<Contact> builder)
         {
             builder.ConfigureBase();
+            builder.HasOne(x => x.sys_drop_down_value)
+         .WithMany(f => f.ContactUs)
+         .HasForeignKey(x => x.EnquiryTypeId);
 
-          //  builder.HasOne(x => x.sys_drop_down_value)
-          //.WithMany(f => f.Offer)
-          //.HasForeignKey(x => x.TotalRoomId);
+            //  builder.HasOne(x => x.sys_drop_down_value)
+            //.WithMany(f => f.Offer)
+            //.HasForeignKey(x => x.TotalRoomId);
 
-       
+
 
         }
     }

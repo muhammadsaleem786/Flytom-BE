@@ -306,10 +306,10 @@ namespace Service.Implementations
                 result.Height = makeobj.Height;
                 result.Length = makeobj.Length;
                 result.Width = makeobj.Width;
-                result.FuelType = makeobj.sys_drop_down_value.Value;
-                result.WheelType = makeobj.sys_drop_down_value1.Value;
-                result.SteeringType = makeobj.sys_drop_down_value2.Value;
-                result.Licence = makeobj.sys_drop_down_value3.Value;
+                result.FuelType = makeobj.sys_drop_down_value.ValueInNorwegian;
+                result.WheelType = makeobj.sys_drop_down_value1.ValueInNorwegian;
+                result.SteeringType = makeobj.sys_drop_down_value2.ValueInNorwegian;
+                result.Licence = makeobj.sys_drop_down_value3.ValueInNorwegian;
 
                 result.VehicleImage = makeobj.VehicleImage.Where(a => !a.IsDeleted).Select(z => new VehicleImageResponse
                 {
@@ -369,13 +369,13 @@ namespace Service.Implementations
                     ModelId = z.VehicleModelsId,
                     MakeName = z.Makes == null ? "" : z.Makes.Name,
                     ModelName = z.VehicleModels == null ? "" : z.VehicleModels.Name,
-                    CarType = z.sys_drop_down_value1.Value,
+                    CarType = z.sys_drop_down_value1.ValueInNorwegian,
                     Description = z.Description,
                     DriveWheelType = z.DriveWheelType,
-                    FuelType = z.sys_drop_down_value.Value,
+                    FuelType = z.sys_drop_down_value.ValueInNorwegian,
                     NoOfDoor = z.NoOfDoor,
                     NoOfSeat = z.NoOfSeatId,
-                    SteeringType = z.sys_drop_down_value2.Value,
+                    SteeringType = z.sys_drop_down_value2.ValueInNorwegian,
                     TankCapacity = z.TankCapacity,
                     CarImage = "",
                     VehicleImage = z.VehicleImage.Where(a => !a.IsDeleted).Select(z => new VehicleImageResponse
@@ -423,13 +423,13 @@ namespace Service.Implementations
                     ModelId = z.VehicleModelsId,
                     MakeName = z.Makes == null ? "" : z.Makes.Name,
                     ModelName = z.VehicleModels == null ? "" : z.VehicleModels.Name,
-                    CarType = z.sys_drop_down_value1.Value,
+                    CarType = z.sys_drop_down_value1.ValueInNorwegian,
                     Description = z.Description,
                     DriveWheelType = z.DriveWheelType,
-                    FuelType = z.sys_drop_down_value.Value,
+                    FuelType = z.sys_drop_down_value.ValueInNorwegian,
                     NoOfDoor = z.NoOfDoor,
                     NoOfSeat = z.NoOfSeatId,
-                    SteeringType = z.sys_drop_down_value2.Value,
+                    SteeringType = z.sys_drop_down_value2.ValueInNorwegian,
                     TankCapacity = z.TankCapacity,
                     CarImage = "",
                     VehicleImage = z.VehicleImage.Where(a => !a.IsDeleted).Select(z => new VehicleImageResponse

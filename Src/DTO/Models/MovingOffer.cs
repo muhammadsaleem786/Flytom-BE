@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,7 @@ namespace DTO.Models
         public long HouseTypeId { get; set; }
         public long FloorTypeId { get; set; }
         public String garage { get; set; }
+        public string ContactType { get; set; }
         public String ParkingDistance { get; set; }
         public String NewAddress { get; set; }
         public String NewStreetNo { get; set; }

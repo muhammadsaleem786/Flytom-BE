@@ -23,6 +23,7 @@ namespace DTO.Models
             Offer3 = new HashSet<MovingOffer>();
             Offer4 = new HashSet<MovingOffer>();
             Offer5 = new HashSet<MovingOffer>();
+            ContactUs = new HashSet<Contact>();
 
             ContentManagment = new HashSet<ContentManagment>();
         }
@@ -49,6 +50,7 @@ namespace DTO.Models
         public virtual ICollection<MovingOffer> Offer3{ get; set; }
         public virtual ICollection<MovingOffer> Offer4 { get; set; }
         public virtual ICollection<MovingOffer> Offer5 { get; set; }
+        public virtual ICollection<Contact> ContactUs { get; set; }
         public virtual ICollection<ContentManagment> ContentManagment { get; set; }
     }
 }

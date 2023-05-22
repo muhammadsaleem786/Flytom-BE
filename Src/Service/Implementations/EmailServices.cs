@@ -67,12 +67,75 @@ namespace Service.Implementations
                 return false;
             }
         }
+        public async Task<bool> SendEmailContact(Contact make)
+        {
+            try
+            {
+               await SendClientEmil(make.Email);
+                MailMessage message = new MailMessage(new MailAddress(AppSettingHelper.GetSmtpEmailAddress(), AppSettingHelper.GetSmtpEmailFrom()), new MailAddress("Post@flyttom.no", "Post@flyttom.no"));
+                message.Subject = $"Flyttom Account: Kontakt";
+                message.IsBodyHtml = true;
+                string htmlbody = "";
+                string pathToFile = hostingEnvironment.WebRootPath +
+                    Path.DirectorySeparatorChar + "html" +
+                    Path.DirectorySeparatorChar + "emails" +
+                    Path.DirectorySeparatorChar + "Contact.html";
+                using (StreamReader SourceReader = File.OpenText(pathToFile))
+                {
+                    htmlbody = SourceReader.ReadToEnd();
+                }
+                
+                htmlbody = htmlbody.Replace("{ContactType}", make.ContactType=="P"? "Privat": "Bedrift");
+                htmlbody = htmlbody.Replace("{Name}", make.Name);
+                htmlbody = htmlbody.Replace("{Telephone}", make.Phone);
+                htmlbody = htmlbody.Replace("{Email}", make.Email);
+                htmlbody = htmlbody.Replace("{EnquiryType}", make.sys_drop_down_value.ValueInNorwegian);
+                htmlbody = htmlbody.Replace("{Description}", make.Description); 
+                // Convert HTML to PDF
+                string HTMLContent = htmlbody;               
+                message.Body = htmlbody;
+                return await SendEmail(message);
+            }
+            catch (Exception ex)
+            {
+                //await eventLogger.LogEvent(ToEmail, "User", "Sign up Email ERROR", new { ex = ex });
+                return false;
+            }
+        }
+        public async Task<bool> SendClientEmil(string email)
+        {
+            try
+            {
+                MailMessage message = new MailMessage(new MailAddress(AppSettingHelper.GetSmtpEmailAddress(), AppSettingHelper.GetSmtpEmailFrom()), new MailAddress(email, email));
+                message.Subject = $"Flyttom Account";
+                message.IsBodyHtml = true;
 
+                string htmlbody = "Takk skal du ha! Forespørselen din blir sendt, og vi vil kontakte deg så snart som mulig.";
+                string pathToFile = hostingEnvironment.WebRootPath +
+                    Path.DirectorySeparatorChar + "html" +
+                    Path.DirectorySeparatorChar + "emails" +
+                    Path.DirectorySeparatorChar + "ContactClient.html";
+                using (StreamReader SourceReader = File.OpenText(pathToFile))
+                {
+                    htmlbody = SourceReader.ReadToEnd();
+                }
+                string HTMLContent = htmlbody;
+                message.Body = htmlbody;
+                return await SendEmail(message);
+            }
+            catch (Exception ex)
+            {
+                //await eventLogger.LogEvent(ToEmail, "User", "Sign up Email ERROR", new { ex = ex });
+                return false;
+            }
+        }
         public async Task<bool> SendEmailWithPdf(MovingOffer make)
         {
             try
             {
-                MailMessage message = new MailMessage(new MailAddress(AppSettingHelper.GetSmtpEmailAddress(), AppSettingHelper.GetSmtpEmailFrom()), new MailAddress(make.Email, make.Email));
+                await SendClientEmil(make.Email);
+
+                MailMessage message = new MailMessage(new MailAddress(AppSettingHelper.GetSmtpEmailAddress(), AppSettingHelper.GetSmtpEmailFrom()), new MailAddress("Flytting@flyttom.no", "Flytting@flyttom.no"));
                 message.Subject = $"Flyttom Account: Confirm email";
                 message.IsBodyHtml = true;
 
@@ -85,39 +148,38 @@ namespace Service.Implementations
                 {
                     htmlbody = SourceReader.ReadToEnd();
                 }
+
+                htmlbody = htmlbody.Replace("{hand}", "FORESPØRSEL OM FLYTTESKJEMA");
+                htmlbody = htmlbody.Replace("{add}", "Nåværende");
+                htmlbody = htmlbody.Replace("{nsker}", "Ønsker");
+                htmlbody = htmlbody.Replace("{ContactType}", make.ContactType=="P"? "Privat" : "Bedrift");
+                
                 htmlbody = htmlbody.Replace("{Name}", make.Name);
                 htmlbody = htmlbody.Replace("{Email}", make.Email);
                 htmlbody = htmlbody.Replace("{Telephone}", make.Phone);
-                htmlbody = htmlbody.Replace("{MovingLoaction}", "-");
-                htmlbody = htmlbody.Replace("{FlexibleMovingDt}", DateTime.UtcNow.ToString("MM/dd/yyyy"));
-                htmlbody = htmlbody.Replace("{FlexibilityDate}", "-");
-                htmlbody = htmlbody.Replace("{AgencyTo}", "-");
-                htmlbody = htmlbody.Replace("{StoreObject}", "-");
-                htmlbody = htmlbody.Replace("{CurrentHome}", "-");
-                htmlbody = htmlbody.Replace("{InsureMoving}", "-");
-                htmlbody = htmlbody.Replace("{MovingLoad}", make.sys_drop_down_value1.Value);
-                htmlbody = htmlbody.Replace("{NoOfPeople}", make.sys_drop_down_value2.Value);
+                htmlbody = htmlbody.Replace("{Flyttedato}", DateTime.UtcNow.ToString("MM/dd/yyyy"));
+                htmlbody = htmlbody.Replace("{pakking}", make.IsPacking==true? "Ja" : "Nei");
+                htmlbody = htmlbody.Replace("{piano}", make.Ispiano == true ? "Ja" : "Nei");
+
                 htmlbody = htmlbody.Replace("{CurrentAdd}", make.CurrentAddress);
                 htmlbody = htmlbody.Replace("{NOST}", make.StreetNo);
-                htmlbody = htmlbody.Replace("{HomeSize}", make.SizeOfHome);
-                htmlbody = htmlbody.Replace("{RoomNo}", make.sys_drop_down_value3.Value);
-                htmlbody = htmlbody.Replace("{HousingTpe}", make.sys_drop_down_value4.Value);
-                htmlbody = htmlbody.Replace("{MovingDt}", "-");
-                htmlbody = htmlbody.Replace("{MovingFromStor}", "-");
-                htmlbody = htmlbody.Replace("{MovingFrom}", "-");
+                htmlbody = htmlbody.Replace("{Post}", make.PostalCode);
+                htmlbody = htmlbody.Replace("{Boligareal}", make.SizeOfHome);
+                htmlbody = htmlbody.Replace("{Antall}", make.sys_drop_down_value.ValueInNorwegian);
+                htmlbody = htmlbody.Replace("{Hustype}", make.sys_drop_down_value1.ValueInNorwegian);
+                htmlbody = htmlbody.Replace("{floors}", make.sys_drop_down_value2.ValueInNorwegian);
+                htmlbody = htmlbody.Replace("{garage}",make.garage);
                 htmlbody = htmlbody.Replace("{DistanceToPark}", make.ParkingDistance);
-                htmlbody = htmlbody.Replace("{NAddress}", make.NewAddress);
-                htmlbody = htmlbody.Replace("{STNO}", make.NewStreetNo);
-                htmlbody = htmlbody.Replace("{PostalCod}", make.PostalCode);
-                htmlbody = htmlbody.Replace("{NORooms}", "-");
-                htmlbody = htmlbody.Replace("{HousingTyp}", "-");
-                htmlbody = htmlbody.Replace("{FloorNumber}", "-");
-                htmlbody = htmlbody.Replace("{LiftAvail}", "-");
-                htmlbody = htmlbody.Replace("{DistanceTo}", make.NewParkingDistance);
-                htmlbody = htmlbody.Replace("{FloorNo}", make.NewStreetNo);
-                htmlbody = htmlbody.Replace("{MovingObj}", "-");
-                htmlbody = htmlbody.Replace("{Fragile}", "-");
-                htmlbody = htmlbody.Replace("{AdditionalInfo}", make.AdditionalInfo);
+
+                htmlbody = htmlbody.Replace("{newCurrentAdd}", make.NewAddress);
+                htmlbody = htmlbody.Replace("{newNOST}", make.NewStreetNo);
+                htmlbody = htmlbody.Replace("{newPost}", make.NewPostalCode);
+                htmlbody = htmlbody.Replace("{newBoligareal}", make.NewSizeOfHome);
+                htmlbody = htmlbody.Replace("{newAntall}", make.sys_drop_down_value3.ValueInNorwegian);
+                htmlbody = htmlbody.Replace("{newHustype}", make.sys_drop_down_value4.ValueInNorwegian);
+                htmlbody = htmlbody.Replace("{newfloors}", make.sys_drop_down_value5.ValueInNorwegian);
+                htmlbody = htmlbody.Replace("{newgarage}", make.Newgarage);
+                htmlbody = htmlbody.Replace("{newDistanceToPark}", make.NewParkingDistance);
                 // Convert HTML to PDF
                 string HTMLContent = htmlbody;
                 var ms = GeneratePDF(HTMLContent);
