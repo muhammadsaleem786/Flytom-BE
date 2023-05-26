@@ -150,7 +150,6 @@ namespace Service.Implementations
                 }
 
                 htmlbody = htmlbody.Replace("{hand}", "FORESPØRSEL OM FLYTTESKJEMA");
-                htmlbody = htmlbody.Replace("{add}", "Nåværende");
                 htmlbody = htmlbody.Replace("{nsker}", "Ønsker");
                 htmlbody = htmlbody.Replace("{ContactType}", make.ContactType=="P"? "Privat" : "Bedrift");
                 
