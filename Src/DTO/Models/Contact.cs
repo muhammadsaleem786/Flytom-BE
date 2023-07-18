@@ -9,6 +9,7 @@ namespace DTO.Models
     public class Contact : CommonDbProp
     {
         public string Name { get; set; }
+        public string CompanyName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }

@@ -59,6 +59,7 @@ namespace Service.Implementations
                     makeobj.Phone = model.Phone;
                     makeobj.Description = model.Description;
                     makeobj.ContactType = model.ContactType;
+                    makeobj.CompanyName = model.CompanyName;
                     makeobj.EnquiryTypeId = Convert.ToInt64(model.EnquiryTypeId);
                     makeobj.UpdatedAt = DateTime.UtcNow;
                     _repository.Contact.Update(makeobj);
@@ -77,6 +78,7 @@ namespace Service.Implementations
                         EnquiryTypeId=Convert.ToInt64(model.EnquiryTypeId),
                         ContactType=model.ContactType,
                         CreatedAt = DateTime.UtcNow,
+                        CompanyName=model.CompanyName,
                     };
                     _repository.Contact.Create(make);
                     await _repository.SaveAsync();
