@@ -310,7 +310,7 @@ namespace Service.Implementations
                 result.WheelType = makeobj.sys_drop_down_value1.ValueInNorwegian;
                 result.SteeringType = makeobj.sys_drop_down_value2.ValueInNorwegian;
                 result.Licence = makeobj.sys_drop_down_value3.ValueInNorwegian;
-
+                result.TotalSeat = makeobj.sys_drop_down_value4.Value;
                 result.VehicleImage = makeobj.VehicleImage.Where(a => !a.IsDeleted).Select(z => new VehicleImageResponse
                 {
                     Id = z.Id,
@@ -338,7 +338,8 @@ namespace Service.Implementations
                 var makeobj = _repository.Vehicle.FindAll().Where(a => a.IsDeleted == false && a.CarType == Type).Include(a => a.Makes)
                     .Include(a => a.VehicleImage).Include(a => a.VehiclePart)
                     .Include(a => a.VehicleModels).Include(a => a.sys_drop_down_value)
-                    .Include(a => a.sys_drop_down_value1).Include(a => a.sys_drop_down_value2).AsQueryable();
+                    .Include(a => a.sys_drop_down_value1).Include(a => a.sys_drop_down_value2).Include(a=>a.sys_drop_down_value3)
+                    .Include(a => a.sys_drop_down_value4).AsQueryable();
                 if (SeatNo != "undefined" && SeatNo != null)
                 {
                     makeobj = makeobj.Where(x => x.NoOfSeatId.ToString().Contains(SeatNo));
@@ -374,6 +375,7 @@ namespace Service.Implementations
                     DriveWheelType = z.DriveWheelType,
                     FuelType = z.sys_drop_down_value.ValueInNorwegian,
                     NoOfDoor = z.NoOfDoor,
+                    TotalSeat=z.sys_drop_down_value4.Value,
                     NoOfSeat = z.NoOfSeatId,
                     SteeringType = z.sys_drop_down_value2.ValueInNorwegian,
                     TankCapacity = z.TankCapacity,

@@ -16,6 +16,7 @@ namespace DTO.ViewModel.Vehicle
         public string MakeName { get; set; }
         public string ModelName { get; set; }
         public string FuelType { get; set; }
+        public string TotalSeat { get; set; }
         public long TankCapacity { get; set; }
         public long NoOfDoor { get; set; }
         public long NoOfSeat { get; set; }
